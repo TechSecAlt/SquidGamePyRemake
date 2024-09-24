@@ -1,7 +1,5 @@
 import random
 
-even = [2,4,6]
-odd = [1,3,5]
 wagerChoice = [1,2,3,4,5,6]
 marbles = 10
 rounds = 0
@@ -22,31 +20,24 @@ def marbleChoice():
     global marbles
 
     rounds = rounds + 1
-    wager = random.choice(wagerChoice)
-    if rounds >= 1:
-        oddOrEven = input("even or odd? (case sensitive!)")
-    else: 
-        oddOrEven = input("even or odd?")
+    wager = random.randint(1, 6)
+    evenOrOdd = input("Even or odd?").lower()
     
-    if oddOrEven == str("odd") or oddOrEven == str("even"):
-        if wager in even:
-            print("The wager was " + str(wager))
-            if oddOrEven == str("even"):
-                print("You won " + str(wager) + " marbles!")
-                marbles = marbles + wager
-            if oddOrEven == str("odd"):
-                print("You lose " + str(wager) + " marbles!")
-                marbles = marbles - wager
-        if wager in odd:
-            print("The wager was " + str(wager))
-            if oddOrEven == str("odd"):
-                print("You won " + str(wager) + " marbles!")
-                marbles = marbles + wager
-            if oddOrEven == str("even"):
-                print("You lose " + str(wager) + " marbles!")
-                marbles = marbles - wager
+    if evenOrOdd == "odd" or evenOrOdd == "even":
+        print(f"The wager was {wager}!")
+        win = winCheck(user=evenOrOdd, wager=wager)
     else:
         print("That's an invalid input.")
+
+def winCheck(user, wager):
+    global marbles
+    if (wager % 2 == 0 and user == "even") or (wager % 2 != 0 and user == "odd"):
+        print(f"You won {wager} marbles!")
+        marbles += wager
+    else:
+        print(f"You lost {wager} marbles!")
+        marbles -= wager
+
 
 
 while True:
